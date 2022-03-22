@@ -18,7 +18,6 @@ app.use(cors());
 app.use('/photos', router);
 app.use('/users', userRouter);
 
-const URI = 'mongodb+srv://mbulelo:voyager123@mbulelo.eu7nw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 const port = process.env.PORT || 5000;
 mongoose.connect(process.env.REACT_APP_ATLAS_URI).then(
     app.listen(port, () => {
