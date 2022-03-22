@@ -3,7 +3,8 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import router from './routes/posts.mjs'
-
+import userRouter from './routes/userRoutes.js'
+import 'dotenv/config'
 // import ('dotenv').config();
 
 const app = express();
@@ -14,10 +15,12 @@ app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
 app.use(cors());
 
 
-app.use('/photos', router)
+app.use('/photos', router);
+app.use('/users', userRouter);
+
 const URI = 'mongodb+srv://mbulelo:voyager123@mbulelo.eu7nw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 const port = process.env.PORT || 5000;
-mongoose.connect(URI).then(
+mongoose.connect(process.env.REACT_APP_ATLAS_URI).then(
     app.listen(port, () => {
         console.log("Server Is Running on port: "+port)
     })

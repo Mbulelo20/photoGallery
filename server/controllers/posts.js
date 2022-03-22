@@ -4,7 +4,7 @@ import PostPhoto from '../models/photo.js'
 export const getPhotos = async (req, res) => {
     
     try {
-        const photos = await PostPhoto.find()
+        const photos = await PostPhoto.find({user: req.user.id})
         res.status(200).json(photos)
     } catch (error) {
         
@@ -14,11 +14,16 @@ export const getPhotos = async (req, res) => {
 export const uploadPhoto =  async (req, res) => {
     const photo = req.body;
 
-    const newPhoto = PostPhoto(photo);
 
     try {
-        await newPhoto.save();
-        res.status(201).json(newPhoto)
+        const newPhoto = newPhoto({
+            tags,
+            photo,
+            user: req.user.id
+        })
+
+        const photo = newPhoto.save();
+        res.status(201).json(photo)
     } catch (error) {
         
     }
